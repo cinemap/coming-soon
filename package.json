@@ -1,0 +1,17 @@
+{
+  "name": "stan",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-contrib-stylus": "latest",
+    "grunt-contrib-coffee": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-contrib-clean": "latest",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-uncss": "latest",
+    "matchdep": "latest",
+    "time-grunt": "latest",
+    "jit-grunt": "latest"
+  }
+}

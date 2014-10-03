@@ -1,0 +1,12 @@
+*.sublime-project
+*.sublime-workspace
+*.pyc
+*.DS_Store
+*.swp
+*.filestub
+/build
+/.sass-cache
+/node_modules
+/staticfiles
+/.anvil
+/.temp

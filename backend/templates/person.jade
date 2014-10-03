@@ -1,0 +1,19 @@
+- extends 'base.jade'
+
+- block content
+   main.container
+      - include 'search.jade'
+      .person
+         h2 {{ person.name }}
+         h3 {{ _('Films') }}
+         - for film in films
+            .film-in-list
+               img(src='http://image.tmdb.org/t/p/w154/{{ film.tmdb_poster }}')
+               .info
+                  - if film.release_date:
+                     p {{ film.release_date.year }}
+                  h4.main-title
+                     a(href="{{ url_for('film', pretty_id=film.pretty_id) }}")
+                        | {{ film.main_title(g.locale) }}
+                  - if film.secondary_title(g.locale)
+                     p.secondary-title {{ film.secondary_title(g.locale) }}

@@ -1,0 +1,21 @@
+- extends 'base.jade'
+
+- block content
+   main.statistics.container
+      h2 {{ _('Database Statistics') }}
+
+      - for model in models
+         h3.table-title {{ model.name }}
+            small &nbsp; ({{model.n_instances}} instances)
+         table
+            thead
+               tr
+                  th Attribute
+                  th Number of instances with values
+            tbody
+               - for attribute in model.attributes
+                  tr
+                     td {{attribute.name}}
+                     td {{attribute.procent_with_values}}% ({{attribute.n_with_values}})
+
+

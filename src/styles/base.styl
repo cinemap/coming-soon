@@ -1,0 +1,57 @@
+.container
+    margin: 0 auto
+    width: 90%
+    max-width: maxPageWidth
+
+html
+    height: 100%
+
+body
+    height: 100%
+
+.container
+    margin: 0 auto
+    width: 90%
+    max-width: maxPageWidth
+
+a
+    color: inherit
+    text-decoration: none
+    &:hover
+        cursor: pointer
+        text-decoration: underline
+
+dt
+    display: inline
+    font-weight: bold
+    &::after
+        content: ':'
+
+dd
+    display: inline
+    margin-left: 2px
+    width: 100%
+    &::after
+        content: '\A'
+        white-space: pre
+
+button
+    background-color: white
+    border: 1px solid color1
+    color: color1
+    border-radius: 2em
+    cursor: pointer
+    text-transform: uppercase
+    padding: 0.5em 1em
+    &:hover
+        background-color: color1
+        color: white
+
+.hidden
+    display: none
+
+
+
+
+
+

@@ -1,0 +1,33 @@
+doctype html
+html(lang='{{ g.locale }}')
+   head
+      title
+         - block title
+            | ComingSoon
+
+      // meta
+      meta(charset="utf-8")
+      meta(name="viewport", content="width=device-width, initial-scale=1.0")
+      meta(http-equiv="X-UA-Compatible", content="IE=Edge")
+      meta(name="description", content='todo')
+      meta(name="author", content="Thomas Hoch und Dominic Looser")
+
+      // links
+      link(rel="shortcut icon", href="{{url_for('static', filename='/images/favicon.ico')}}")
+      link(rel="stylesheet", href="{{url_for('static', filename='styles.css')}}")
+      link(href='http://fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic&subset=latin,latin-ext', rel='stylesheet')
+      link(href='http://fonts.googleapis.com/css?family=Lato:400,700,900', rel='stylesheet')
+
+      //[if lt IE 9] script(src="http://html5shim.googlecode.com/svn/trunk/html5.js")
+
+   body
+      header#main-header
+         .container
+            h1: a(href='/') ComingSoon
+            nav
+               a(href='/settings') settings
+      block content
+      //- - include 'footer.jade'
+      //- - include 'google-analytics.html'
+      script(src="{{ url_for('static', filename='scripts.js') }}")
+      block scripts
