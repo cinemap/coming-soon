@@ -1,0 +1,10 @@
+extends base
+
+block content
+   main.container
+      - for director in directors
+         div
+            input(type='checkbox')
+            label= director.name
+         hr
+ 

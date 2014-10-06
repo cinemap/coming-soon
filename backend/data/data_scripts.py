@@ -10,6 +10,7 @@ import sys
 from models import Person, Film, Video
 TMDB_KEY = '95a5e0f59034242b05d55145c16a1c35'
 
+
 def prototype_import():
     path = '/Users/dominic/projects/stan/data/ratings.csv' 
     imdb_ids = imdb.extract_imdb_ids(path)
@@ -34,6 +35,7 @@ def prototype_import():
             for director in result['directed_by']:
                 person = store.get(Person, director['mid'])
     db.session.commit()
+
 
 def complete_director_data():
 

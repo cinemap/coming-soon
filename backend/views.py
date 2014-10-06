@@ -1,7 +1,8 @@
 from flask import render_template
-from main import app
-from models import Film
+from main import app, mail
+from models import Film, Person
 from flask.ext.user import login_required
+from flask.ext.mail import Message
 
 
 @app.route('/')
@@ -13,4 +14,9 @@ def index():
 @app.route('/settings')
 @login_required
 def settings():
-    return render_template('settings.jade')
+    directors = Person.query.filter(Person.director_of.any()).all()
+    return render_template('settings.jade', directors=directors)
+
+
+
+        

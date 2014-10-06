@@ -26,6 +26,11 @@ html(lang='{{ g.locale }}')
             h1: a(href='/') ComingSoon
             nav
                a(href='/settings') settings
+               - if current_user.is_authenticated()
+                  a(href='{{url_for("user.logout")}}') logout
+               - else
+                  a(href='{{url_for("user.login")}}') login
+
       block content
       //- - include 'footer.jade'
       //- - include 'google-analytics.html'

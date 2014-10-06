@@ -1,20 +1,20 @@
-- extends 'base.jade'
+extends base
 
-- block content
+block content
    main.container
       - for film in films
          div.media
             - if film.small_poster_url
                img(src='{{film.small_poster_url}}')
             div.media-body
-               p.film-title {{film.title_en}} 
+               p.film-title= film.title_en
                - if film.description_en
-                  p {{film.description_en}}
+                  p= film.description_en
                dl
                   dt Directed by 
-                  dd {{film.directors[0].name}}
+                  dd= film.directors[0].name
                   - if film.release_date
                      dt Release date
-                     dd {{film.release_date.strftime('%B %Y')}}
+                     dd=film.release_date.strftime('%B %Y')
                a(href='http://www.imdb.com/title/{{film.imdb_id}}') IMDB entry
          hr

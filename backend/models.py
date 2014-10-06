@@ -1,7 +1,6 @@
 from datetime import date
 
 from sqlalchemy.orm import load_only
-from flask import g
 from flask.ext.user import UserMixin
 
 from main import db
@@ -68,12 +67,22 @@ in_collection_table = db.Table(
     db.Column('collection_id', db.Integer, db.ForeignKey('collection.id'))
 )
 
+follows_director_table = db.Table(
+    'follows_director',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('director_id', db.Text, db.ForeignKey('person.id'))
+)
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     active = db.Column(db.Boolean(), nullable=False, default=False)
     email = db.Column(db.Text, nullable=False, unique=True)
     password = db.Column(db.Text, nullable=False, default='')
+    followed_directors = db.relationship(
+        'Person',
+        secondary=follows_director_table,
+        backref=db.backref('followed_by', lazy='dynamic'))
 
 
 class Film(db.Model):
@@ -159,13 +168,13 @@ class Film(db.Model):
     def __repr__(self):
         return '<%r>' % self.id
 
+
 class Country(db.Model):
 
     id = db.Column(db.Text, primary_key=True)
     freebase_mid = db.Column(db.Text, unique=True)
     pretty_id = db.Column(db.Text, unique=True)
     iso_3166_1_numeric = db.Column(db.String(3))
-
 
     name_de = db.Column(db.Text)
     name_en = db.Column(db.Text)
@@ -184,9 +193,9 @@ class Country(db.Model):
         query = query.order_by(Person.director_popularity.desc())
         return query[0:8]
 
-
     def __repr__(self):
         return '<%r>' % self.id
+
 
 class Place(db.Model):
     id = db.Column(db.Text, primary_key=True)
@@ -204,9 +213,9 @@ class Place(db.Model):
         backref=db.backref('places', lazy='dynamic')
     )
 
-
     def __repr__(self):
         return '<%r>' % self.id
+
 
 class Person(db.Model):
     id = db.Column(db.Text, primary_key=True)

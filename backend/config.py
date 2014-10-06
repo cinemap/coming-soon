@@ -9,18 +9,19 @@ SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URI']
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 # Configure Flask-Mail -- Required for Confirm email and Forgot password features
-# MAIL_SERVER   = 'smtp.cinemap.org'
-# MAIL_PORT     = 587
-# MAIL_USE_SSL  = True                            # Some servers use MAIL_USE_TLS=True instead
-# MAIL_USERNAME = 'feedback@cinemap.org'
-# MAIL_PASSWORD = 'HJifxNW7LM3XQr'
-# MAIL_DEFAULT_SENDER = 'Stan (yo!)'
+MAIL_SERVER   = 'smtp.cinemap.org'
+MAIL_PORT     = 587
+MAIL_USE_TLS  = False
+MAIL_USE_SSL  = True                            # Some servers use MAIL_USE_TLS=True instead
+MAIL_USERNAME = 'feedback@cinemap.org'
+MAIL_PASSWORD = 'HJifxNW7LM3XQr'
+MAIL_DEFAULT_SENDER = 'feedback@cinemap.org'
 
 # Configure Flask-User
 USER_PRODUCT_NAME           = "Stan"     # Used by email templates
-USER_ENABLE_USERNAME        = True             # Register and Login with username
+USER_ENABLE_USERNAME        = False             # Register and Login with username
 USER_ENABLE_CHANGE_USERNAME = False
-USER_ENABLE_EMAIL           = False              # Register and Login with email
+USER_ENABLE_EMAIL           = True              # Register and Login with email
 USER_LOGIN_TEMPLATE         = 'flask_user/login_or_register.html'
 USER_REGISTER_TEMPLATE      = 'flask_user/login_or_register.html'
 USER_AFTER_LOGIN_ENDPOINT   = 'profile_page'
