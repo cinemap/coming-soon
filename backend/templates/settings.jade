@@ -2,9 +2,10 @@ extends base
 
 block content
    main.container
-      - for director in directors
-         div
-            input(type='checkbox')
+      form(action='save-settings', method='post')
+         for director in directors
+            input(type='checkbox', name='{{director.id}}')
             label= director.name
-         hr
+            hr
+         input(type='submit')
  
