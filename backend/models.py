@@ -3,7 +3,7 @@ from datetime import date
 from sqlalchemy.orm import load_only
 from flask.ext.user import UserMixin
 
-from main import db
+from app import db
 
 trailer_table = db.Table(
     'trailer',
@@ -77,8 +77,10 @@ follows_director_table = db.Table(
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     active = db.Column(db.Boolean(), nullable=False, default=False)
-    email = db.Column(db.Text, nullable=False, unique=True)
+    username = db.Column(db.Text, unique=True)
+    email = db.Column(db.Text, unique=True)
     password = db.Column(db.Text, nullable=False, default='')
+
     followed_directors = db.relationship(
         'Person',
         secondary=follows_director_table,

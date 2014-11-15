@@ -1,3 +1,4 @@
+from collections import Counter
 import logging
 
 import tmdb3
@@ -5,13 +6,24 @@ import tmdb3
 import imdb
 import freebase
 from store import Store
-from main import db
-import sys
+from app import db
 from models import Person, Film, Video
+from helpers import add_pretty_ids
 TMDB_KEY = '95a5e0f59034242b05d55145c16a1c35'
 
 
+def add_pretty_ids_to_films():
+    add_pretty_ids(Film, 'title_en')
+
+
 def prototype_import():
+    import_directors_from_ratings()
+    complete_director_data()
+    complete_film_data()
+    complete_tmdb_data()
+
+
+def import_directors_from_ratings():
     path = '/Users/dominic/projects/stan/data/ratings.csv' 
     imdb_ids = imdb.extract_imdb_ids(path)
     store = Store()
@@ -47,7 +59,7 @@ def complete_director_data():
             'name': None,
             '/film/director/film': [{
                 'mid': None,
-                '/film/film/initial_release_date>': '2014-01-01',  
+                # '/film/film/initial_release_date>': '2014-01-01',  
                 'optional': 'optional'
             }] 
         }
@@ -61,6 +73,7 @@ def complete_director_data():
         print 'director {}: {}'.format(counter, person.name.encode('utf-8'))
     
     db.session.commit()
+
 
 def complete_film_data():
     store = Store()
@@ -108,7 +121,6 @@ def complete_film_data():
         except Exception, e:
             print 'problem with release date in film {}: {}'.format(result['mid'], result['initial_release_date'])
           
-
         potential_imdb_ids = [key['value'] for key in result['a:key']]
         film.imdb_id = imdb.correct_ids(potential_imdb_ids)
 
@@ -139,6 +151,7 @@ def complete_film_data():
         print 'film {}: {}'.format(counter, title.encode('utf-8')) 
 
     db.session.commit()
+
 
 def complete_tmdb_data():
     tmdb3.set_key(TMDB_KEY)

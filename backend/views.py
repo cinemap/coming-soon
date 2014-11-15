@@ -1,20 +1,36 @@
 from flask import render_template, request, redirect
 from flask.ext.user import login_required, current_user
 
-from main import app, db
+from app import app, db
 from models import Film, Person
+
+
+def f7(seq):
+    seen = set()
+    seen_add = seen.add
+    return [x for x in seq if not (x in seen or seen_add(x))]
 
 
 @app.route('/')
 def index():
-    # TODO correct!!!
-    directors = Person.query.filter(Person.followed_by.contains(current_user))
-    all_films = Film.query.order_by(Film.release_date).all()
-    films = []
-    for film in all_films:
-        if film.directors[0] in directors:
-            films.append(film)
-    return render_template('index.jade', films=films)
+    if current_user.is_anonymous():
+        return render_template('index.jade')
+    else:
+        directors = Person.query.filter(Person.followed_by.contains(current_user))
+        films = []
+        for director in directors:
+            query = Film.query.filter(Film.directors.contains(director))
+            director_films = query.filter(Film.release_date >= '2014-01-01')
+            films.extend(director_films)
+        films.sort(key=lambda film: film.release_date)
+        films = f7(films)
+        return render_template('films.jade', films=films)
+
+
+@app.route('/film/<pretty_id>')
+def film(pretty_id):
+    film = Film.query.filter_by(pretty_id=pretty_id).first()
+    return render_template('film.jade', film=film)
 
 
 @app.route('/settings')

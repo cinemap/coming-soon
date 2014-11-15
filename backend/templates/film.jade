@@ -1,34 +1,33 @@
-- extends 'base.jade'
+extends 'base.jade'
 
-- block content
-   main.container
-      - include 'search.jade'
-      .film
-         h2
-            span.film-title {{ film.main_title(g.locale) }}
-            - if film.secondary_title(g.locale)
-               span.secondary-film-title {{ film.secondary_title(g.locale)}}
-         p.film-info-line
-            - for director in film.directors
-               a(href='/persons/{{ director.pretty_id }}') {{ director.name }}
-            | &nbsp;| {{ film.release_date.year }} &nbsp;|&nbsp;
-            - for country in film.countries
-               span {{ country.name(g.locale) }}
+block content
+   .container
+      main
+         h1= film.title_en   
+         .media
+            img(src='{{film.small_poster_url}}')
+            .media-body
+               p= film.directors[0].name
+        
+
+         //- p.film-info-line
+         //-    - for director in film.directors
+         //-       a(href='/persons/{{ director.pretty_id }}') {{ director.name }}
+         //-    | &nbsp;| {{ film.release_date.year }} &nbsp;|&nbsp;
+   
+         //- img(src='http://image.tmdb.org/t/p/w500/{{ film.tmdb_poster }}')
+
+         //- - if film.description_en
+         //-    p.truncated-film-description
+         //-       span {{ film.description_en | truncate(120) }} &nbsp;
+         //-       span.more  {{ _('read more') }}
+         //-    p.full-film-description
+         //-       {{ film.description_en }} &nbsp;
+         //-       span.less  {{ _('less') }}
 
 
-         img(src='http://image.tmdb.org/t/p/w500/{{ film.tmdb_poster }}')
-
-         - if film.description_en
-            p.truncated-film-description
-               span {{ film.description_en | truncate(120) }} &nbsp;
-               span.more  {{ _('read more') }}
-            p.full-film-description
-               {{ film.description_en }} &nbsp;
-               span.less  {{ _('less') }}
-
-
-         .film-interaction
-            a.button.recommend(data-title='{{ film.title_en }}', data-pretty-id='{{ film.pretty_id }}') recommend
+         //- .film-interaction
+         //-    a.button.recommend(data-title='{{ film.title_en }}', data-pretty-id='{{ film.pretty_id }}') recommend
             //- button.recommend {{ _('Recommend') }}
             //- .recommendation(tabindex='0')
             //-    p {{ _('Recommend')}} {{ film.main_title(g.locale) }} to:
