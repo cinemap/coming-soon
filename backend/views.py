@@ -1,5 +1,6 @@
 from flask import render_template, request, redirect
 from flask.ext.user import login_required, current_user
+from sqlalchemy.orm import joinedload
 
 from app import app, db
 from models import Film, Person
@@ -36,7 +37,11 @@ def film(pretty_id):
 @app.route('/settings')
 @login_required
 def settings():
-    directors = Person.query.filter(Person.director_of.any()).all()
+    directors = []
+    option = joinedload('director_of').load_only(Film.id)
+    for person in Person.query.options(option).all():
+        if person.director_of:
+            directors.append(person)
     return render_template('settings.jade', directors=directors)
 
 

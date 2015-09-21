@@ -49,28 +49,29 @@ def import_directors_from_ratings():
     db.session.commit()
 
 
-def complete_director_data():
+def complete_person_data():
 
     store = Store()
     counter = 0
     for person in Person.query.all():
-        query = {
-            'mid': person.id,
-            'name': None,
-            '/film/director/film': [{
-                'mid': None,
-                # '/film/film/initial_release_date>': '2014-01-01',  
-                'optional': 'optional'
-            }] 
-        }
-        result = freebase.get_result(query)
-        person.name = result['name']
-        for film in result['/film/director/film']:
-            film = store.get(Film, film['mid'])
-            person.director_of.append(film) 
+        if person.director_of:  # person has directed at least
+            query = {
+                'mid': person.id,
+                'name': None,
+                '/film/director/film': [{
+                    'mid': None,
+                    # '/film/film/initial_release_date>': '2014-01-01',  
+                    'optional': 'optional'
+                }] 
+            }
+            result = freebase.get_result(query)
+            person.name = result['name']
+            for film in result['/film/director/film']:
+                film = store.get(Film, film['mid'])
+                person.director_of.append(film) 
 
-        counter += 1
-        print 'director {}: {}'.format(counter, person.name.encode('utf-8'))
+            counter += 1
+            print counter
     
     db.session.commit()
 

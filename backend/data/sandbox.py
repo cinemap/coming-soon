@@ -1,11 +1,11 @@
 import freebase
+from models import Person
 
-query = {
-    'type': '/film/film',
-    'mid': '/m/0y88_95',
-    'initial_release_date': None
-}
 
-result = freebase.get_result(query)
-date = result['initial_release_date']
-print type(date), date
+def is_director():
+    counter = 0
+    for person in Person.query.all():
+        if person.director_of:
+            counter += 1
+            print counter
+
