@@ -14,7 +14,8 @@ def f7(seq):
 
 @app.route('/')
 def index():
-    if current_user.is_anonymous():
+    print current_user.is_anonymous 
+    if current_user.is_anonymous:
         return render_template('index.jade')
     else:
         directors = Person.query.filter(Person.followed_by.contains(current_user))

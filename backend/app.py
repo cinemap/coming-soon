@@ -21,3 +21,4 @@ mail = Mail(app)
 def get_locale():
     translations = [str(translation) for translation in babel.list_translations()]
     return request.accept_languages.best_match(translations)
+

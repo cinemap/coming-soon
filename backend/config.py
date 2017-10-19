@@ -18,13 +18,13 @@ MAIL_PASSWORD = 'HJifxNW7LM3XQr'
 MAIL_DEFAULT_SENDER = 'feedback@cinemap.org'
 
 # Configure Flask-User
-USER_PRODUCT_NAME = "Stan"     # Used by email templates
+USER_PRODUCT_NAME = "coming soon"     # Used by email templates
 USER_ENABLE_USERNAME = True             # Register and Login with username
 USER_ENABLE_CHANGE_USERNAME = False
 USER_ENABLE_EMAIL = False              # Register and Login with email
 USER_LOGIN_TEMPLATE = 'flask_user/login_or_register.html'
 USER_REGISTER_TEMPLATE = 'flask_user/login_or_register.html'
-USER_AFTER_LOGIN_ENDPOINT = 'profile_page'
+USER_AFTER_LOGIN_ENDPOINT = 'index'
 USER_AFTER_CONFIRM_ENDPOINT = 'profile_page'
 
 
